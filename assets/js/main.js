@@ -1,6 +1,6 @@
 /* Set the full application URL when available; otherwise CTAs open the local demo. */
 const PLATFORM_URL =
-  "https://1asi0729-2620-16692-bitmeisters.github.io/Frontend-Web-Application/";
+  "https://1asi0729-2620-16692-bitmeisters.github.io/fleet-safe-web-application/";
 /* Set the YouTube video ids of About the Product and About the Team to replace their placeholders. */
 const PRODUCT_VIDEO_ID = "";
 const TEAM_VIDEO_ID = "";
