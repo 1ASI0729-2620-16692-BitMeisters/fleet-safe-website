@@ -123,8 +123,8 @@ summary:focus-visible {
   font-weight: 700;
   border-radius: 4px;
   transition:
-    background 0.2s,
-    transform 0.2s;
+          background 0.2s,
+          transform 0.2s;
 }
 .btn:hover {
   background: #a93412;
@@ -158,8 +158,8 @@ summary:focus-visible {
 }
 .eyebrow {
   font:
-    11px "Courier New",
-    monospace;
+          11px "Courier New",
+          monospace;
   font-weight: 700;
   letter-spacing: 1.6px;
   text-transform: uppercase;
@@ -229,7 +229,7 @@ summary:focus-visible {
   position: absolute;
   inset: 0;
   background-image: linear-gradient(#ffffff07 1px, transparent 1px),
-    linear-gradient(90deg, #ffffff07 1px, transparent 1px);
+  linear-gradient(90deg, #ffffff07 1px, transparent 1px);
   background-size: 35px 35px;
 }
 .art-top {
@@ -1487,8 +1487,8 @@ dialog::backdrop {
 }
 .people-photo figcaption {
   font:
-    9px/1.7 "Courier New",
-    monospace;
+          9px/1.7 "Courier New",
+          monospace;
   letter-spacing: 0.6px;
   color: var(--muted);
   margin-top: 10px;
@@ -1562,11 +1562,11 @@ dialog::backdrop {
   padding: 8px 9px;
   min-height: 32px;
   font:
-    700 11px Arial,
-    sans-serif;
+          700 11px Arial,
+          sans-serif;
   transition:
-    background 0.2s,
-    color 0.2s;
+          background 0.2s,
+          color 0.2s;
 }
 .language-switch button[aria-pressed="true"] {
   background: var(--ink);
@@ -1631,4 +1631,119 @@ dialog::backdrop {
   .language-switch button {
     padding: 8px 7px;
   }
+}
+.btn.outline {
+  background: var(--white);
+  color: var(--ink);
+  border-color: #cbd2c6;
+}
+.btn.outline:hover {
+  background: #f0efe7;
+  border-color: var(--ink);
+}
+.plans-section .section-head p {
+  max-width: 420px;
+}
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px 32px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.plan.featured {
+  border: 2px solid var(--orange);
+  box-shadow: 0 24px 65px #dd471a1f;
+}
+.plan-badge {
+  position: absolute;
+  top: -14px;
+  right: 20px;
+  padding: 7px 14px;
+  background: var(--orange-text);
+  color: var(--white);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.plan-tag {
+  font:
+          11px "Courier New",
+          monospace;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--orange-text);
+}
+.plan h3 {
+  margin: 14px 0 6px;
+}
+.plan-price {
+  margin: 0 0 14px;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+.plan-description {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.plan-features {
+  list-style: none;
+  margin: 0 0 30px;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  flex: 1;
+}
+.plan-features li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.plan-features li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+.plan .btn {
+  width: 100%;
+  gap: 0;
+}
+.plans-note {
+  margin: 28px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+@media (max-width: 900px) {
+  .plans {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin: 0 auto;
+    gap: 32px;
+  }
+  .plans-section .section-head p {
+    max-width: none;
+  }
+}
+.footer-links {
+  flex-wrap: wrap;
+  row-gap: 12px;
 }

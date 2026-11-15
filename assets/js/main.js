@@ -1,9 +1,14 @@
-/* Set the full application URL when available; otherwise CTAs open the local demo. */
+/* Full application URL. Every button of the page opens its sign-in screen. */
 const PLATFORM_URL =
-  "https://1asi0729-2620-16692-bitmeisters.github.io/fleet-safe-web-application/";
-/* Set the YouTube video ids of About the Product and About the Team to replace their placeholders. */
-const PRODUCT_VIDEO_ID = "";
-const TEAM_VIDEO_ID = "";
+    "https://1asi0729-2620-16692-bitmeisters.github.io/fleet-safe-web-application/";
+const SIGN_IN_URL = new URL("iam/sign-in", PLATFORM_URL).href;
+/* Paste the unlisted YouTube link (youtu.be/..., watch?v=...) or the 11-character id of each video. */
+const PRODUCT_VIDEO = "https://youtu.be/b9TY4c08-bY";
+const TEAM_VIDEO = "https://youtu.be/6WYXFLFqIlY";
+const youtubeId = (value) =>
+    (String(value).match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/)([\w-]{11})/) ||
+        String(value).match(/^([\w-]{11})$/) ||
+        [])[1] || "";
 const LANGUAGES = ["en-US", "es-419"];
 const DEFAULT_LANGUAGE = "en-US";
 const MESSAGES = window.FLEETSAFE_I18N || {};
@@ -15,23 +20,23 @@ try {
   /* Storage may be unavailable when opening a local file. */
 }
 const t = (key, params = {}) =>
-  (
-    (MESSAGES[language] || {})[key] ??
-    MESSAGES[DEFAULT_LANGUAGE]?.[key] ??
-    key
-  ).replace(/\{(\w+)\}/g, (_, name) => params[name] ?? "");
+    (
+        (MESSAGES[language] || {})[key] ??
+        MESSAGES[DEFAULT_LANGUAGE]?.[key] ??
+        key
+    ).replace(/\{(\w+)\}/g, (_, name) => params[name] ?? "");
 const menu = document.querySelector(".menu");
 const navigation = document.querySelector("#navigation");
 const dialog = document.querySelector("#inspection-dialog");
 let currentInspection = null;
 function updateMenuLabel() {
   menu.setAttribute(
-    "aria-label",
-    t(
-      menu.getAttribute("aria-expanded") === "true"
-        ? "app.close-menu"
-        : "header.open-menu",
-    ),
+      "aria-label",
+      t(
+          menu.getAttribute("aria-expanded") === "true"
+              ? "app.close-menu"
+              : "header.open-menu",
+      ),
   );
 }
 function closeMenu() {
@@ -46,8 +51,8 @@ menu.addEventListener("click", () => {
   updateMenuLabel();
 });
 navigation
-  .querySelectorAll("a")
-  .forEach((link) => link.addEventListener("click", closeMenu));
+    .querySelectorAll("a")
+    .forEach((link) => link.addEventListener("click", closeMenu));
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && navigation.classList.contains("open")) {
     closeMenu();
@@ -64,27 +69,27 @@ document.querySelectorAll(".avatar img").forEach((img) => {
 });
 function updateCount() {
   const count = [...document.querySelectorAll("tr[data-status]")].filter(
-    (row) => !row.hidden,
+      (row) => !row.hidden,
   ).length;
   document.querySelector("#result-count").textContent = t(
-    count === 1 ? "app.sample-count-one" : "app.sample-count-other",
-    { count },
+      count === 1 ? "app.sample-count-one" : "app.sample-count-other",
+      { count },
   );
 }
 document.querySelectorAll("[data-filter]").forEach((button) =>
-  button.addEventListener("click", () => {
-    document
-      .querySelectorAll("[data-filter]")
-      .forEach((item) =>
-        item.setAttribute("aria-pressed", String(item === button)),
-      );
-    document.querySelectorAll("tr[data-status]").forEach((row) => {
-      row.hidden =
-        button.dataset.filter !== "all" &&
-        row.dataset.status !== button.dataset.filter;
-    });
-    updateCount();
-  }),
+    button.addEventListener("click", () => {
+      document
+          .querySelectorAll("[data-filter]")
+          .forEach((item) =>
+              item.setAttribute("aria-pressed", String(item === button)),
+          );
+      document.querySelectorAll("tr[data-status]").forEach((row) => {
+        row.hidden =
+            button.dataset.filter !== "all" &&
+            row.dataset.status !== button.dataset.filter;
+      });
+      updateCount();
+    }),
 );
 const examples = {
   ok: {
@@ -128,12 +133,12 @@ function renderInspection() {
   if (!currentInspection) return;
   const item = examples[currentInspection];
   document.querySelector("#inspection-title").textContent = t(
-    "app.vehicle-title",
-    { unit: item.unit },
+      "app.vehicle-title",
+      { unit: item.unit },
   );
   document.querySelector("#inspection-description").textContent = t(
-    "app.inspection-description",
-    { time: item.time },
+      "app.inspection-description",
+      { time: item.time },
   );
   const badge = document.createElement("span");
   badge.className = "badge " + item.css;
@@ -153,23 +158,23 @@ function renderInspection() {
   document.querySelector("#inspection-note").textContent = t(item.note);
 }
 document.querySelectorAll("[data-detail]").forEach((button) =>
-  button.addEventListener("click", () => {
-    currentInspection = button.dataset.detail;
-    renderInspection();
-    dialog.showModal();
-  }),
+    button.addEventListener("click", () => {
+      currentInspection = button.dataset.detail;
+      renderInspection();
+      dialog.showModal();
+    }),
 );
 document
-  .querySelectorAll(".close,#close-detail")
-  .forEach((button) => button.addEventListener("click", () => dialog.close()));
+    .querySelectorAll(".close,#close-detail")
+    .forEach((button) => button.addEventListener("click", () => dialog.close()));
 dialog.addEventListener("click", (event) => {
   if (event.target === dialog) {
     const rect = dialog.getBoundingClientRect();
     if (
-      event.clientX < rect.left ||
-      event.clientX > rect.right ||
-      event.clientY < rect.top ||
-      event.clientY > rect.bottom
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
     )
       dialog.close();
   }
@@ -185,42 +190,44 @@ function setLanguage(next, announce = false) {
       element.setAttribute(attr, t(element.getAttribute(`data-i18n-${attr}`)));
     });
   document
-    .querySelectorAll("[data-language]")
-    .forEach((button) =>
-      button.setAttribute(
-        "aria-pressed",
-        String(button.dataset.language === language),
-      ),
-    );
+      .querySelectorAll("[data-language]")
+      .forEach((button) =>
+          button.setAttribute(
+              "aria-pressed",
+              String(button.dataset.language === language),
+          ),
+      );
   updateMenuLabel();
   updateCount();
   renderInspection();
   if (PLATFORM_URL && /^https:\/\//.test(PLATFORM_URL))
     document.querySelectorAll("[data-app-link]").forEach((link) => {
-      link.href = PLATFORM_URL;
-      link.firstChild.textContent = t("app.go-to-platform") + " ";
+      link.href = SIGN_IN_URL;
+      if (!link.hasAttribute("data-keep-label"))
+        link.firstChild.textContent = t("app.go-to-platform") + " ";
     });
   try {
     localStorage.setItem("fleetsafe-language", language);
   } catch (_) {}
   if (announce)
     document.querySelector("#language-announcement").textContent = t(
-      "app.language-changed",
+        "app.language-changed",
     );
 }
 document
-  .querySelectorAll("[data-language]")
-  .forEach((button) =>
-    button.addEventListener("click", () =>
-      setLanguage(button.dataset.language, true),
-    ),
-  );
+    .querySelectorAll("[data-language]")
+    .forEach((button) =>
+        button.addEventListener("click", () =>
+            setLanguage(button.dataset.language, true),
+        ),
+    );
 setLanguage(language);
-for (const [name, id, title] of [
-  ["product", PRODUCT_VIDEO_ID, "About the Product — FleetSafe"],
-  ["team", TEAM_VIDEO_ID, "About the Team — BitMeisters"],
+for (const [name, link, title] of [
+  ["product", PRODUCT_VIDEO, "About the Product — FleetSafe"],
+  ["team", TEAM_VIDEO, "About the Team — BitMeisters"],
 ]) {
-  if (!/^[\w-]{11}$/.test(id)) continue;
+  const id = youtubeId(link);
+  if (!id) continue;
   const video = document.createElement("iframe");
   video.src = `https://www.youtube-nocookie.com/embed/${id}`;
   video.title = title;
